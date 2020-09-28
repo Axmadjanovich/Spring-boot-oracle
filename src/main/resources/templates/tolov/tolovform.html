@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Tolov uchun forma</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        font-size: 20px;
+      }
+      body {
+        position: relative;
+        height: 100vh;
+      }
+      .main {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        padding: 20px;
+        box-shadow: 0 0 10px #ccc;
+      }
+      input {
+        padding: 5px;
+        border-radius: 10px;
+        width: 50%;
+        outline: none;
+      }
+      input:focus {
+        border: 1px solid blue;
+      }
+      ul li {
+        list-style: none;
+        margin-bottom: 20px;
+      }
+      .button {
+        width: 120px;
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .button:hover {
+        cursor: pointer;
+        border-radius: 10px;
+        border-color: blue;
+        transition: all 0.3s ease-in-out;
+      }
+      .button:hover > p {
+        color: blue;
+      }
+      .button > p {
+        font-size: 14px;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main col-sm-8">
+        <h2>Tolov bo'limi</h2>
+        <form
+          class="form-horizontal"
+          th:object="${tolovForm}"
+          th:action="@{/tolov}"
+          th:method="${edit} ? 'put' : 'post'"
+        >
+          <div th:if="${#fields.hasErrors('*') || !error}" class="alert alert-danger">
+            <p>Xatolik</p>
+          </div>
+
+          <input type="hidden" th:field="*{id}" />
+
+          <div
+            class="form-group"
+            th:class="${#fields.hasErrors('turi')} ? 'form-group has-error' : 'form-group'"
+          >
+            <label class="control-label">To'lov turi:</label>
+            <div class="">
+              <input
+                type="text"
+                class="form-control"
+                th:field="*{turi}"
+                th:errorclass="has-error"
+              />
+
+              <span class="help-block">
+                <ul>
+                  <li
+                    th:each="err : ${#fields.errors('turi')}"
+                    th:text="${err}" class="alert alert-danger"
+                  />
+                </ul>
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="form-group"
+            th:class="${#fields.hasErrors('narxi')} ? 'form-group has-error' : 'form-group'"
+          >
+            <label class="control-label">Narxi:</label>
+            <div class="">
+              <input
+                class="form-control"
+                type="number"
+                min="0"
+                max="500000000"
+                step="1"
+                th:field="*{narxi}"
+                th:errorclass="has-error"
+              />
+
+              <span class="help-block">
+                <ul>
+                  <li
+                    th:each="err : ${#fields.errors('narxi')}"
+                    th:text="${err}" class="alert alert-danger"
+                  />
+                </ul>
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="form-group"
+            th:class="${#fields.hasErrors('inn')} ? 'form-group has-error' : 'form-group'"
+          >
+            <label class="control-label">Jismoniy shaxs INN si:</label>
+            <div class="">
+              <input
+                type="text"
+                class="form-control"
+                th:field="*{inn}"
+                th:errorclass="has-error"
+              />
+
+              <span class="help-block">
+                <ul>
+                  <li th:if="${error}"
+                      th:each="err : ${#fields.errors('inn')}"
+                      th:text="${err}" class="alert alert-danger"
+                  />
+                  <div th:if="${!error}" class="alert alert-danger" >
+                    <p>INN topilmadi</p>
+                  </div>
+
+                </ul>
+              </span>
+            </div>
+          </div>
+          <div class="row button">
+            <button type="submit" class="btn" th:text="${edit} ? 'O\'zgartirish' : 'Qo\'shish'">Qo'shish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

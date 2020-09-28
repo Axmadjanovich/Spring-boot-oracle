@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Tolovlar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link
+      href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+      th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+      rel="stylesheet"
+      media="screen"
+    />
+
+    <script
+      src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+      th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"
+    ></script>
+
+    <link
+      href="../../static/css/spring-core.css"
+      th:href="@{css/spring-core.css}"
+      rel="stylesheet"
+      media="screen"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        font-size: 20px;
+      }
+      form {
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ccc;
+      }
+      form:hover {
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 0 15px #aaa;
+      }
+      body {
+        position: relative;
+        height: 100vh;
+      }
+      .main {
+        top: 50%;
+        transform: translate(0, -50%);
+        position: absolute;
+      }
+      h2 {
+        margin-bottom: 20px;
+        font-size: 22px;
+      }
+      .button {
+        width: 120px;
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .button:hover {
+        cursor: pointer;
+        border-radius: 10px;
+        border-color: blue;
+        transition: all 0.3s ease-in-out;
+      }
+      .button:hover > p {
+        color: blue;
+      }
+      .button > p {
+        font-size: 14px;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main col-sm-10">
+        <div class="row">
+          <div class="col-sm-6">
+            <h2>To'lov ma'lumotlari</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10">
+            <form class="form-horizontal" th:action="@{/tolov/list}" >
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Tolov Id:</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static" th:text="${tolov.id}">
+                    Id
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Turi:</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static" th:text="${tolov.turi}">
+                    turi
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Narxi:</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static" th:text="${tolov.narxi}">
+                    123456
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 sm-2 control-label">
+                  Jismoniy shaxs INN si:
+                </label>
+                <div class="col-sm-8">
+                  <p class="form-control-static" th:text="${tolov.abonentlar.inn}">
+                    123456789
+                  </p>
+                </div>
+              </div>
+              <div class="row button">
+                <button type="submit" class="btn">Ro'yxatni ko'rish</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

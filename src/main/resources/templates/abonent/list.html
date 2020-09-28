@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>To'lov oynasi</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        font-size: 15px;
+      }
+      body {
+        position: relative;
+        height: 100vh;
+      }
+      .main {
+        box-shadow: 0 0 10px #ccc;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+      }
+      a:hover {
+        cursor: pointer;
+      }
+      .main:hover {
+        transition: all 0.1s ease-in-out;
+        box-shadow: 0 0 15px #aaa;
+      }
+      .table {
+        padding: 200px;
+      }
+      h2 {
+        padding: 20px;
+      }
+      .new_payment {
+        border: 1px solid #444;
+        padding: 7px;
+        color: black;
+        margin-top: 15px;
+        margin-left: 20px;
+        width: 120px;
+        text-align: center;
+        border-radius: 5px;
+      }
+      .new_payment:hover {
+        cursor: pointer;
+        border-color: blue;
+      }
+      .new_payment:hover > a {
+        color: blue;
+      }
+      .new_payment > a {
+        color: black;
+        text-decoration: none;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container main">
+      <div th:if="${not #lists.isEmpty(abonentlar)}">
+        <h2>To'lovlar ro'yxati</h2>
+        <table class="table" th:with="i=1">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Id</th>
+              <th scope="col">Ismi</th>
+              <th scope="col">Familiyasi</th>
+              <th scope="col">Otasining ismi</th>
+              <th scope="col">INN</th>
+              <th scope="col">Username</th>
+              <th scope="col">O'zgartirish</th>
+              <th scope="col">O'chirish</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="abonent : ${abonentlar}" th:with="k=1">
+              <th scope="row" th:text="${k}">1</th>
+              <td th:text="${abonent.id}">tolovlar</td>
+              <td th:text="${abonent.ismi}">tolovlar</td>
+              <td th:text="${abonent.familiyasi}">tolovlar</td>
+              <td th:text="${abonent.otasining_ismi}">tolovlar</td>
+              <td th:text="${abonent.inn}">INN</td>
+              <td th:text="${abonent.username}">Username</td>
+              <td>
+                <a th:href="${'/abonent/edit/' + abonent.id}">O'zgartirish</a>
+              </td>
+              <td><a th:href="${'/abonent/delete/' + abonent.id}">O'chirish</a></td>
+              <div th:with="k=${k+1}"></div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="new_payment">
+          <a href="/abonent/new">Yangi to'lov</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
